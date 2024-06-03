@@ -1,11 +1,11 @@
-package me.approximations.music.services.impl;
+package me.approximations.music.services.user.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.dtos.CreateUserDTO;
 import me.approximations.music.entities.User;
 import me.approximations.music.entities.enums.AccountType;
 import me.approximations.music.repositories.UserRepository;
-import me.approximations.music.services.UserService;
+import me.approximations.music.services.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

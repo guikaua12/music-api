@@ -1,4 +1,4 @@
-package me.approximations.music.services;
+package me.approximations.music.services.user;
 
 import me.approximations.music.dtos.CreateUserDTO;
 import me.approximations.music.entities.User;

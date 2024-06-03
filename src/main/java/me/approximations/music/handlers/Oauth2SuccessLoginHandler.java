@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.dtos.CreateUserDTO;
 import me.approximations.music.entities.User;
-import me.approximations.music.services.UserService;
+import me.approximations.music.services.user.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
