@@ -1,3 +1,17 @@
 spring.application.name=music
-spring.security.oauth2.client.registration.google.client-id=your-client-id
-spring.security.oauth2.client.registration.google.client-secret=your-client-secret
+# Database
+spring.datasource.url=jdbc:mysql://localhost:3306/music
+spring.datasource.username=root
+spring.datasource.password=
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+# Authentication
+spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID}
+spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET}
+spring.security.oauth2.login.redirect-url=http://localhost:3000
+spring.security.jwt.secret=${JWT_SECRET}
+# Cloudflare:
+spring.cloudflare.token=${CLOUDFLARE_TOKEN}
+spring.cloudflare.r2.access_key=${R2_ACCESS_KEY}
+spring.cloudflare.r2.secret_key=${R2_SECRET_KEY}
+spring.cloudflare.r2.endpoint=${R2_ENDPOINT}
