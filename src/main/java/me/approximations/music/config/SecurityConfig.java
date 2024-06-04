@@ -10,11 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Profile("default")
+@EnableWebSecurity(debug=true)
 public class SecurityConfig {
 
     @Bean
@@ -25,7 +27,7 @@ public class SecurityConfig {
             c.successHandler(oauth2SuccessLoginHandler);
         });
 
-        http.authorizeHttpRequests(c -> c.requestMatchers("/user/me").authenticated());
+        http.authorizeHttpRequests(c -> c.anyRequest().permitAll());
 
         http.exceptionHandling(c ->
                 c.accessDeniedHandler(new SecurityAccessDeniedHandler())
