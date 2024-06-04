@@ -13,4 +13,4 @@ A ideia é usar o Cloudflare R2 (usando a API do AWS S3) pra salvar e recuperar 
 Em breve vai ter front-end usando Next.js, alguma lib css-in-js e testes usando Cypress.
 
 ## Desenvolvimento
-Todo o desenvolvimento desse projeto estará acontecendo em live no youtube. [Abrir playlist](https://www.youtube.com/watch?v=DZ9iHGZyWYU&list=PLbArY1LE1KhoUDbRwlW084JaUztakhI1-)
+Todo o desenvolvimento desse projeto estará acontecendo em live no youtube. [Abrir playlist](https://www.youtube.com/playlist?list=PLbArY1LE1KhoUDbRwlW084JaUztakhI1-)
