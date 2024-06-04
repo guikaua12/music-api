@@ -7,21 +7,21 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.entities.User;
 import me.approximations.music.security.authentication.JwtAuthenticationToken;
+import me.approximations.music.security.entities.CustomUserDetails;
 import me.approximations.music.security.jwt.JwtService;
-import me.approximations.music.services.user.UserService;
+import me.approximations.music.services.user.CustomUserDetailsService;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserService userService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -38,18 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             final DecodedJWT jwt = jwtService.decode(token);
             final String email = jwt.getClaim("email").asString();
 
-            final Optional<User> userOptional = userService.findByEmail(email);
+            final CustomUserDetails userDetails = userDetailsService.findByEmail(email);
 
-            if (userOptional.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
-
-            final User user = userOptional.get();
-
-            SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(user));
+            SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, true));
             filterChain.doFilter(request, response);
-        } catch (JWTVerificationException e) {
+        } catch (JWTVerificationException | AuthenticationException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

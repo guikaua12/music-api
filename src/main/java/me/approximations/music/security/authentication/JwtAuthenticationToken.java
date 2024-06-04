@@ -1,21 +1,23 @@
 package me.approximations.music.security.authentication;
 
-import lombok.RequiredArgsConstructor;
-import me.approximations.music.entities.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import me.approximations.music.security.entities.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
+@Getter
+@AllArgsConstructor
 public class JwtAuthenticationToken implements Authentication {
-    private final User user;
+    private final CustomUserDetails user;
     private boolean authenticated;
 
     @Override
     public String getName() {
-        return user.getName();
+        return user.getUsername();
     }
 
     @Override

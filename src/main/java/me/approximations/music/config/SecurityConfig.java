@@ -2,8 +2,10 @@ package me.approximations.music.config;
 
 import me.approximations.music.handlers.Oauth2SuccessLoginHandler;
 import me.approximations.music.security.filters.JwtAuthenticationFilter;
+import me.approximations.music.security.handlers.SecurityAccessDeniedHandler;
+import me.approximations.music.security.handlers.SecurityAuthenticationEntryPoint;
 import me.approximations.music.security.jwt.JwtService;
-import me.approximations.music.services.user.UserService;
+import me.approximations.music.services.user.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,11 +19,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, Oauth2SuccessLoginHandler oauth2SuccessLoginHandler,
-                                           JwtService jwtService, UserService userService) throws Exception {
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtService, userService), UsernamePasswordAuthenticationFilter.class);
+                                           JwtService jwtService, CustomUserDetailsService userDetailsService) throws Exception {
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService), UsernamePasswordAuthenticationFilter.class);
         http.oauth2Login(c -> {
             c.successHandler(oauth2SuccessLoginHandler);
         });
+
+        http.authorizeHttpRequests(c -> c.requestMatchers("/user/me").authenticated());
+
+        http.exceptionHandling(c ->
+                c.accessDeniedHandler(new SecurityAccessDeniedHandler())
+                        .authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
+        );
 
         return http.build();
     }
