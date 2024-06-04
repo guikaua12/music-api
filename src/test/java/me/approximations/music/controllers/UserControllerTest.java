@@ -21,8 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class UserControllerTest {
     @Autowired
-    private UserController userController;
-    @Autowired
     private MockMvc mockMvc;
 
     @Test
