@@ -24,6 +24,7 @@ public class TestSecurityConfig {
         http.authorizeHttpRequests(c ->
                 c.requestMatchers("/user/me").authenticated()
                         .requestMatchers("/album/create").authenticated()
+                        .requestMatchers("/song/upload").authenticated()
                         .anyRequest().permitAll()
         );
 
