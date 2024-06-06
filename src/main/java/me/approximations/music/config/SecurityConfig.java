@@ -27,7 +27,12 @@ public class SecurityConfig {
             c.successHandler(oauth2SuccessLoginHandler);
         });
 
-        http.authorizeHttpRequests(c -> c.anyRequest().permitAll());
+        http.authorizeHttpRequests(c ->
+                c.requestMatchers("/user/me").authenticated()
+                        .requestMatchers("/album/create").authenticated()
+                        .requestMatchers("/song/upload").authenticated()
+                        .anyRequest().permitAll()
+        );
 
         http.exceptionHandling(c ->
                 c.accessDeniedHandler(new SecurityAccessDeniedHandler())

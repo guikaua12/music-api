@@ -18,7 +18,7 @@ public class Song {
     @Column(name="image_url")
     private String imageUrl;
     @Column(name="music_url")
-    private String musicUrl;
+    private String filename;
 
     @ManyToOne
     private Album album;

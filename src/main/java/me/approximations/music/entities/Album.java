@@ -24,4 +24,8 @@ public class Album {
 
     @OneToMany(mappedBy="album")
     private final Set<Song> songs = new HashSet<>();
+
+    public void addSong(Song song) {
+        songs.add(song);
+    }
 }
