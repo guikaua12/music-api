@@ -5,11 +5,13 @@ import me.approximations.music.dtos.UploadSongDTO;
 import me.approximations.music.entities.Album;
 import me.approximations.music.entities.Song;
 import me.approximations.music.exceptions.NotFoundException;
+import me.approximations.music.exceptions.UnsupportedFileTypeException;
 import me.approximations.music.repositories.AlbumRepository;
 import me.approximations.music.repositories.SongRepository;
 import me.approximations.music.services.song.SongService;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.impl.FileUploadResult;
+import me.approximations.music.utils.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,10 @@ public class SongServiceImpl implements SongService {
     @Transactional
     @Override
     public Song uploadSong(UploadSongDTO dto) {
+        if (!FileUtils.isAudioFile(dto.file())) {
+            throw new UnsupportedFileTypeException("Unsupported media type.");
+        }
+
         final Album album = albumRepository.findById(dto.albumId()).orElseThrow(() -> new NotFoundException("Album not found."));
 
         final Song song = new Song(null, dto.name(), dto.imageUrl(), null, album);
