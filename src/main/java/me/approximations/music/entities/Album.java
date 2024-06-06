@@ -1,5 +1,6 @@
 package me.approximations.music.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Album {
     @ManyToOne
     private User artist;
 
+    @JsonIgnore
     @OneToMany(mappedBy="album")
     private final Set<Song> songs = new HashSet<>();
 

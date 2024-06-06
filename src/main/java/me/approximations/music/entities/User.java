@@ -1,5 +1,6 @@
 package me.approximations.music.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import me.approximations.music.entities.enums.AccountType;
@@ -24,6 +25,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    @JsonIgnore
     @OneToMany(mappedBy="artist")
     private final Set<Album> albums = new HashSet<>();
 }
