@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -39,7 +40,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new SecurityAuthenticationEntryPoint())
         );
 
-        http.csrf(c -> c.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
