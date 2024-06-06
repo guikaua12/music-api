@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Profile("test")
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity
 public class TestSecurityConfig {
 
     @Bean

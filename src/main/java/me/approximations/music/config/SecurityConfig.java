@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @Profile("default")
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
