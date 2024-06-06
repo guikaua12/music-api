@@ -8,4 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadResult {
     private final PutObjectResult putObjectResult;
     private final MultipartFile multipartFile;
+    private final String filename;
 }

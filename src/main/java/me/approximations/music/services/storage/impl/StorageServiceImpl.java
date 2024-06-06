@@ -29,7 +29,7 @@ public class StorageServiceImpl implements StorageService {
         final PutObjectResult result = client.putObject(bucket, newFileName, file);
         file.delete();
 
-        return new FileUploadResult(result, multipartFile);
+        return new FileUploadResult(result, multipartFile, newFileName);
     }
 
     private File multipartToFile(MultipartFile multipartFile) {
