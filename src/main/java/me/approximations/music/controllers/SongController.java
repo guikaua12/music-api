@@ -1,5 +1,6 @@
 package me.approximations.music.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.dtos.UploadSongDTO;
 import me.approximations.music.entities.Song;
@@ -17,7 +18,7 @@ public class SongController {
     private final SongService songService;
 
     @PutMapping("/upload")
-    public ResponseEntity<Song> upload(UploadSongDTO dto) {
+    public ResponseEntity<Song> upload(@Valid UploadSongDTO dto) {
         return ResponseEntity.ok(songService.uploadSong(dto));
     }
 
