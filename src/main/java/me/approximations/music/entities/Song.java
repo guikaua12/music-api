@@ -2,6 +2,7 @@ package me.approximations.music.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.approximations.music.utils.CloudflareObjectUrlResolverUtils;
 
 @AllArgsConstructor
 @NoArgsConstructor(force=true)
@@ -22,4 +23,16 @@ public class Song {
 
     @ManyToOne
     private Album album;
+
+    @Transient
+    private String songUrl;
+
+    @PostLoad
+    public void postLoad() {
+        updateSongUrl();
+    }
+
+    public void updateSongUrl() {
+        this.songUrl = CloudflareObjectUrlResolverUtils.getObjectUrl(filename);
+    }
 }

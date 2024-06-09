@@ -16,4 +16,5 @@ cloudflare.r2.access_key=${R2_ACCESS_KEY}
 cloudflare.r2.secret_key=${R2_SECRET_KEY}
 cloudflare.r2.endpoint=${R2_ENDPOINT}
 cloudflare.r2.bucket=${R2_BUCKET}
+cloudflare.r2.public_url=${R2_PUBLIC_URL}
 spring.servlet.multipart.max-file-size=5MB

@@ -35,7 +35,7 @@ public class SongServiceImpl implements SongService {
 
         final Album album = albumRepository.findById(dto.albumId()).orElseThrow(() -> new NotFoundException("Album not found."));
 
-        final Song song = new Song(null, dto.name(), dto.imageUrl(), null, album);
+        final Song song = new Song(null, dto.name(), dto.imageUrl(), null, album, null);
         album.addSong(song);
 
         songRepository.save(song);
@@ -44,6 +44,7 @@ public class SongServiceImpl implements SongService {
             final FileUploadResult result = storageService.upload(dto.file());
 
             song.setFilename(result.getFilename());
+            song.updateSongUrl();
             return song;
         } catch (IOException e) {
             throw new RuntimeException(e);
