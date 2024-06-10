@@ -4,32 +4,41 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.services.storage.StorageService;
+import me.approximations.music.services.storage.result.upload.S3FileUploadResult;
+import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class StorageServiceImpl implements StorageService {
+@Profile("default")
+public class S3StorageService implements StorageService<S3FileUploadResult> {
     private final AmazonS3 client;
     @Value("${cloudflare.r2.bucket}")
     private String bucket;
+    private final FilenameGeneratorStrategy filenameGeneratorStrategy;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    public FileUploadResult upload(MultipartFile multipartFile) throws IOException {
+    public S3FileUploadResult upload(MultipartFile multipartFile) throws IOException {
         final File file = multipartToFile(multipartFile);
-        final String newFileName = String.format("%s-%s", file.getName(), UUID.randomUUID().toString());
+        final String newFileName = filenameGeneratorStrategy.generate(file.getName());
 
         final PutObjectResult result = client.putObject(bucket, newFileName, file);
         file.delete();
 
-        return new FileUploadResult(result, multipartFile, newFileName);
+        return new S3FileUploadResult(result, multipartFile, newFileName);
+    }
+
+    @Override
+    public boolean objectExists(String filename) {
+        return client.getObject(bucket, filename) != null;
     }
 
     private File multipartToFile(MultipartFile multipartFile) {
