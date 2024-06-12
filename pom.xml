@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>me.approximations</groupId>
-    <artifactId>music</artifactId>
+    <artifactId>music-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>music</name>
     <description>music</description>
