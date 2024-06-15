@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { Container, RightSide } from './layout.styles';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import ThemeProvider from '@/providers/ThemeProvider';
 import Header from '@/components/Header/Header';
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Music',
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-br">
-            <body className={montserrat.className}>
+            <body className={inter.className}>
                 <ThemeProvider>
                     <Container>
                         <Sidebar />
