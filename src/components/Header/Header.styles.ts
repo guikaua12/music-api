@@ -1,11 +1,13 @@
 'use client';
 import styled from 'styled-components';
 
-export const Container = styled.header`
-    padding: 2rem 0;
+export const HeaderWrapper = styled.header`
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+`;
+
+export const Container = styled.div`
+    padding: 2rem 2rem;
     display: flex;
     justify-content: space-between;
-    width: 100%;
-
-    background: linear-gradient(135deg, #000000, #1a1a1a);
+    margin: 0 auto;
 `;
