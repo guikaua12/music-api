@@ -14,8 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-
 @RequiredArgsConstructor
 @RequestMapping("/album")
 @RestController
@@ -41,16 +39,6 @@ public class AlbumController {
     @PostMapping("/create")
     public ResponseEntity<Album> create(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestBody @Valid CreateAlbumDTO dto) {
         return ResponseEntity.ok(albumService.create(dto, userDetails.getUser()));
-    }
-
-    @Operation(summary="Return all albums of a user.")
-    @ApiResponses(value={
-            @ApiResponse(responseCode="200", description="Found albums."),
-            @ApiResponse(responseCode="404", description="User not found."),
-    })
-    @GetMapping("/{id}/album")
-    public ResponseEntity<Set<Album>> getAllByUser(@PathVariable Long id) {
-        return ResponseEntity.ok(albumService.getAllByUser(id));
     }
 }
 
