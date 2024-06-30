@@ -20,6 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    public static final String[] PUBLIC_ENDPOINTS = {
+            "/album/{id}",
+            "/album/{id}/album",
+            "/song/search",
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, Oauth2SuccessLoginHandler oauth2SuccessLoginHandler,
                                            JwtService jwtService, CustomUserDetailsService userDetailsService) throws Exception {
@@ -29,9 +35,7 @@ public class SecurityConfig {
         });
 
         http.authorizeHttpRequests(c ->
-                c.requestMatchers("/user/me").authenticated()
-                        .requestMatchers("/album/create").authenticated()
-                        .requestMatchers("/song/upload").authenticated()
+                c.requestMatchers(PUBLIC_ENDPOINTS).authenticated()
                         .anyRequest().permitAll()
         );
 
