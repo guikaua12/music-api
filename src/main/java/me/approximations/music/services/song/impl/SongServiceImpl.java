@@ -46,11 +46,12 @@ public class SongServiceImpl implements SongService {
             song.setFilename(result.getFilename());
             song.setSongUrl(result.getUrl());
 
+            songRepository.save(song);
+
             return song;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
