@@ -10,6 +10,7 @@ A ideia é usar o AWS S3 como forma de armazenamento das músicas.
 - Spring Boot
 - Spring Data JPA (PostgreSQL)
 - Testes de integração usando MockMvc, JUnit e TestContainers
+- Documentação com Swagger
 
 ## Front-end
 
