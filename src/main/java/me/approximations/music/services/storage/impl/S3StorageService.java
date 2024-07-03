@@ -1,7 +1,5 @@
 package me.approximations.music.services.storage.impl;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.result.upload.S3FileUploadResult;
@@ -11,6 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,10 +20,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Service
 @Profile("default")
-public class S3StorageService implements StorageService<S3FileUploadResult> {
-    private final AmazonS3 client;
-    @Value("${cloudflare.r2.bucket}")
-    private String bucket;
+public class S3StorageService implements StorageService {
+    private final S3Client client;
+    private final AwsProperties awsProperties;
     private final FilenameGeneratorStrategy filenameGeneratorStrategy;
     private final StorageObjectUrlResolver storageObjectUrlResolver;
 
@@ -32,7 +32,12 @@ public class S3StorageService implements StorageService<S3FileUploadResult> {
         final File file = multipartToFile(multipartFile);
         final String newFileName = filenameGeneratorStrategy.generate(file.getName());
 
-        final PutObjectResult result = client.putObject(bucket, newFileName, file);
+        final PutObjectRequest request = PutObjectRequest.builder()
+                .bucket(awsProperties.getBucket())
+                .key(newFileName)
+                .build();
+
+        client.putObject(request, RequestBody.fromFile(file));
         file.delete();
 
         return new S3FileUploadResult(result, multipartFile, newFileName);
@@ -40,7 +45,7 @@ public class S3StorageService implements StorageService<S3FileUploadResult> {
 
     @Override
     public boolean objectExists(String filename) {
-        return client.getObject(bucket, filename) != null;
+        return client.headObject(b -> b.bucket(awsProperties.getBucket()).key(filename)) != null;
     }
 
     private File multipartToFile(MultipartFile multipartFile) {

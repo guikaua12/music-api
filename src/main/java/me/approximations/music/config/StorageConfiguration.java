@@ -1,31 +1,33 @@
 package me.approximations.music.config;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import me.approximations.music.properties.AwsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @Configuration
+@Profile("default")
 public class StorageConfiguration {
     @Bean
-    public AmazonS3 amazonS3(
-            @Value("${cloudflare.r2.endpoint}") String endpoint,
-            @Value("${cloudflare.r2.access_key}") String accessKey,
-            @Value("${cloudflare.r2.secret_key}") String secretKey
-    ) {
-        final AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-        final AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(endpoint, "auto");
+    public S3Client amazonS3(AwsProperties awsProperties) {
+        final AwsCredentials awsCredentials = AwsBasicCredentials.builder()
+                .accessKeyId(awsProperties.getAccessKey())
+                .secretAccessKey(awsProperties.getSecretKey())
+                .build();
 
-        return AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withEndpointConfiguration(endpointConfiguration)
+        return S3Client.builder()
+                .region(Region.of("auto"))
+                .endpointOverride(URI.create(awsProperties.getEndpoint()))
+                .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
                 .build();
     }
 }
