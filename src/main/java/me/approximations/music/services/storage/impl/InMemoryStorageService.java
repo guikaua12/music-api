@@ -3,6 +3,7 @@ package me.approximations.music.services.storage.impl;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.resolver.StorageObjectUrlResolver;
+import me.approximations.music.services.storage.resolver.impl.InMemoryStorageObjectUrlResolver;
 import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
 import org.springframework.context.annotation.Profile;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class InMemoryStorageService implements StorageService {
     private final Map<String, MultipartFile> objects = new HashMap<>();
     private final FilenameGeneratorStrategy filenameGeneratorStrategy;
-    private final StorageObjectUrlResolver storageObjectUrlResolver;
+    private final StorageObjectUrlResolver storageObjectUrlResolver = new InMemoryStorageObjectUrlResolver();
 
     @Override
     public StorageUploadResult upload(MultipartFile multipartFile) throws IOException {
