@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import me.approximations.music.properties.AwsProperties;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.resolver.StorageObjectUrlResolver;
-import me.approximations.music.services.storage.resolver.impl.StorageObjectUrlResolverImpl;
 import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
 import me.approximations.music.services.storage.strategies.impl.UUIDFilenameGeneratorStrategy;
@@ -26,7 +25,7 @@ public class S3StorageService implements StorageService {
     private final S3Client client;
     private final AwsProperties awsProperties;
     private final FilenameGeneratorStrategy filenameGeneratorStrategy = new UUIDFilenameGeneratorStrategy();
-    private final StorageObjectUrlResolver storageObjectUrlResolver = new StorageObjectUrlResolverImpl(awsProperties);
+    private final StorageObjectUrlResolver storageObjectUrlResolver;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
