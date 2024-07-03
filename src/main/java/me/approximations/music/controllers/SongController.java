@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.dtos.UploadSongDTO;
+import me.approximations.music.dtos.input.UploadSongDTO;
 import me.approximations.music.entities.Song;
 import me.approximations.music.services.song.SongService;
 import org.springframework.data.domain.Page;

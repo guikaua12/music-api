@@ -1,6 +1,6 @@
 package me.approximations.music.services;
 
-import me.approximations.music.dtos.UploadSongDTO;
+import me.approximations.music.dtos.input.UploadSongDTO;
 import me.approximations.music.entities.Album;
 import me.approximations.music.entities.Song;
 import me.approximations.music.entities.User;

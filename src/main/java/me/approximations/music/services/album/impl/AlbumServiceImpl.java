@@ -2,7 +2,7 @@ package me.approximations.music.services.album.impl;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.dtos.CreateAlbumDTO;
+import me.approximations.music.dtos.input.CreateAlbumDTO;
 import me.approximations.music.entities.Album;
 import me.approximations.music.entities.User;
 import me.approximations.music.exceptions.NotFoundException;

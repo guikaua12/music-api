@@ -1,4 +1,4 @@
-package me.approximations.music.dtos;
+package me.approximations.music.dtos.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

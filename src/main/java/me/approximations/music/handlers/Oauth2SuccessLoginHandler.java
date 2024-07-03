@@ -5,7 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.dtos.CreateUserDTO;
+import me.approximations.music.dtos.input.CreateUserDTO;
 import me.approximations.music.entities.User;
 import me.approximations.music.security.jwt.JwtService;
 import me.approximations.music.services.user.CustomUserDetailsService;

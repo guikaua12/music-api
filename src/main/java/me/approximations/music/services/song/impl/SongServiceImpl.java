@@ -1,7 +1,7 @@
 package me.approximations.music.services.song.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.dtos.UploadSongDTO;
+import me.approximations.music.dtos.input.UploadSongDTO;
 import me.approximations.music.entities.Album;
 import me.approximations.music.entities.Song;
 import me.approximations.music.exceptions.NotFoundException;

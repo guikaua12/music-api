@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.approximations.music.dtos.CreateAlbumDTO;
+import me.approximations.music.dtos.input.CreateAlbumDTO;
 import me.approximations.music.entities.Album;
 import me.approximations.music.security.entities.CustomUserDetails;
 import me.approximations.music.services.album.AlbumService;
