@@ -1,11 +1,11 @@
 package me.approximations.music.services.storage.impl;
 
 import lombok.RequiredArgsConstructor;
+import me.approximations.music.properties.AwsProperties;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.result.upload.S3FileUploadResult;
 import me.approximations.music.services.storage.resolver.StorageObjectUrlResolver;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
