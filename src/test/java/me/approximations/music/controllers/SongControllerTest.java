@@ -8,8 +8,10 @@ import me.approximations.music.repositories.UserRepository;
 import me.approximations.music.security.authentication.JwtAuthenticationToken;
 import me.approximations.music.security.entities.CustomUserDetails;
 import me.approximations.music.services.storage.StorageService;
+import me.approximations.music.utils.RepositoryCleanUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -48,6 +50,8 @@ public class SongControllerTest {
     private UserRepository userRepository;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private RepositoryCleanUtil repositoryCleanUtil;
 
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:16-alpine"
@@ -61,6 +65,11 @@ public class SongControllerTest {
     @AfterAll
     static void afterAll() {
         postgres.stop();
+    }
+
+    @BeforeEach
+    public void beforeEach() {
+        repositoryCleanUtil.clean();
     }
 
     @DynamicPropertySource
