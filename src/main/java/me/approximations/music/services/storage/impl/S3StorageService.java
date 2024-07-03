@@ -7,6 +7,7 @@ import me.approximations.music.services.storage.resolver.StorageObjectUrlResolve
 import me.approximations.music.services.storage.resolver.impl.StorageObjectUrlResolverImpl;
 import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
+import me.approximations.music.services.storage.strategies.impl.UUIDFilenameGeneratorStrategy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +25,7 @@ import java.io.IOException;
 public class S3StorageService implements StorageService {
     private final S3Client client;
     private final AwsProperties awsProperties;
-    private final FilenameGeneratorStrategy filenameGeneratorStrategy;
+    private final FilenameGeneratorStrategy filenameGeneratorStrategy = new UUIDFilenameGeneratorStrategy();
     private final StorageObjectUrlResolver storageObjectUrlResolver = new StorageObjectUrlResolverImpl(awsProperties);
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

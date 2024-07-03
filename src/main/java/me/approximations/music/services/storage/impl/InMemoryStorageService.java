@@ -6,6 +6,7 @@ import me.approximations.music.services.storage.resolver.StorageObjectUrlResolve
 import me.approximations.music.services.storage.resolver.impl.InMemoryStorageObjectUrlResolver;
 import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
+import me.approximations.music.services.storage.strategies.impl.NoOpFilenameGeneratorStrategy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,7 @@ import java.util.Map;
 @Profile("test")
 public class InMemoryStorageService implements StorageService {
     private final Map<String, MultipartFile> objects = new HashMap<>();
-    private final FilenameGeneratorStrategy filenameGeneratorStrategy;
+    private final FilenameGeneratorStrategy filenameGeneratorStrategy = new NoOpFilenameGeneratorStrategy();
     private final StorageObjectUrlResolver storageObjectUrlResolver = new InMemoryStorageObjectUrlResolver();
 
     @Override
