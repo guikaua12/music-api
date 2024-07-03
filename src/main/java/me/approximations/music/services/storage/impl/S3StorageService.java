@@ -3,8 +3,8 @@ package me.approximations.music.services.storage.impl;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.properties.AwsProperties;
 import me.approximations.music.services.storage.StorageService;
-import me.approximations.music.services.storage.result.upload.S3FileUploadResult;
 import me.approximations.music.services.storage.resolver.StorageObjectUrlResolver;
+import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class S3StorageService implements StorageService {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    public S3FileUploadResult upload(MultipartFile multipartFile) throws IOException {
+    public StorageUploadResult upload(MultipartFile multipartFile) throws IOException {
         final File file = multipartToFile(multipartFile);
         final String newFileName = filenameGeneratorStrategy.generate(file.getName());
 
@@ -40,7 +40,7 @@ public class S3StorageService implements StorageService {
         client.putObject(request, RequestBody.fromFile(file));
         file.delete();
 
-        return new S3FileUploadResult(result, multipartFile, newFileName);
+        return new StorageUploadResult(multipartFile, newFileName, storageObjectUrlResolver.getObjectUrl(newFileName));
     }
 
     @Override

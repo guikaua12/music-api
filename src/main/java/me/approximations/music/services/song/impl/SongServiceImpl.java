@@ -10,7 +10,7 @@ import me.approximations.music.repositories.AlbumRepository;
 import me.approximations.music.repositories.SongRepository;
 import me.approximations.music.services.song.SongService;
 import me.approximations.music.services.storage.StorageService;
-import me.approximations.music.services.storage.result.upload.FileUploadResult;
+import me.approximations.music.services.storage.result.upload.StorageUploadResult;
 import me.approximations.music.utils.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +24,7 @@ import java.io.IOException;
 public class SongServiceImpl implements SongService {
     private final AlbumRepository albumRepository;
     private final SongRepository songRepository;
-    private final StorageService<?> storageService;
+    private final StorageService storageService;
 
     @Transactional
     @Override
@@ -41,10 +41,11 @@ public class SongServiceImpl implements SongService {
         songRepository.save(song);
 
         try {
-            final FileUploadResult result = storageService.upload(dto.file());
+            final StorageUploadResult result = storageService.upload(dto.file());
 
             song.setFilename(result.getFilename());
-            song.updateSongUrl();
+            song.setSongUrl(result.getUrl());
+
             return song;
         } catch (IOException e) {
             throw new RuntimeException(e);
