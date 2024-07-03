@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import lombok.RequiredArgsConstructor;
 import me.approximations.music.services.storage.StorageService;
 import me.approximations.music.services.storage.result.upload.S3FileUploadResult;
+import me.approximations.music.services.storage.resolver.StorageObjectUrlResolver;
 import me.approximations.music.services.storage.strategies.FilenameGeneratorStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -23,6 +24,7 @@ public class S3StorageService implements StorageService<S3FileUploadResult> {
     @Value("${cloudflare.r2.bucket}")
     private String bucket;
     private final FilenameGeneratorStrategy filenameGeneratorStrategy;
+    private final StorageObjectUrlResolver storageObjectUrlResolver;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
