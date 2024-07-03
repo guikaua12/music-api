@@ -26,7 +26,7 @@ public class SongController {
             @ApiResponse(responseCode="404", description="Album not found."),
             @ApiResponse(responseCode="415", description="Unsupported media type."),
     })
-    @PutMapping("/upload")
+    @PostMapping("/upload")
     public ResponseEntity<Song> upload(@Valid UploadSongDTO dto) {
         return ResponseEntity.ok(songService.uploadSong(dto));
     }
