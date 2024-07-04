@@ -35,8 +35,8 @@ public class SecurityConfig {
         });
 
         http.authorizeHttpRequests(c ->
-                c.requestMatchers(PUBLIC_ENDPOINTS).authenticated()
-                        .anyRequest().permitAll()
+                c.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .anyRequest().authenticated()
         );
 
         http.exceptionHandling(c ->
