@@ -60,7 +60,7 @@ public class Oauth2SuccessLoginHandler implements AuthenticationSuccessHandler {
 
     private Cookie createTokenCookie(String token) {
         final Cookie cookie = new Cookie("music_token", token);
-        cookie.setMaxAge((int) COOKIE_TOKEN_DURATION.toMillis());
+        cookie.setMaxAge((int) COOKIE_TOKEN_DURATION.toSeconds());
 
         return cookie;
     }
